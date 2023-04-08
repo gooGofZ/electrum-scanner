@@ -5,8 +5,9 @@ import json
 import os.path
 import subprocess
 import concurrent.futures
-import BIP39
+import BIP39 # BIP39 standard word list.
 import pyfiglet
+
 
 def brute_force():
     word = BIP39.WORDLIST
@@ -43,7 +44,7 @@ def main():
     with concurrent.futures.ThreadPoolExecutor() as executor:
         for i, seed_phrase in enumerate(brute_force()):
             # print(f'{i + 1} | {seed_phrase}')
-            wallet_path = f"/home/rushmi0/.electrum/electrum_wallet/restore_{i}.json"
+            wallet_path = f"/home/rushmi0/.electrum/electrum_wallet/account_{i}.json"
             executor.submit(process_seed_phrase, seed_phrase, i, my_key, wallet_path)
 
 if __name__ == "__main__":
