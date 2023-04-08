@@ -47,6 +47,6 @@ def main():
             executor.submit(process_seed_phrase, seed_phrase, i, my_key, wallet_path)
 
 if __name__ == "__main__":
-    result = pyfiglet.figlet_format("keyrestore", font="big")
+    result = pyfiglet.figlet_format("scanning", font="big")
     print(result)
     main()
