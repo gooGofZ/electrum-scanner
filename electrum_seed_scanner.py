@@ -24,7 +24,7 @@ def process_seed_phrase(seed_phrase, index, my_key, wallet_path):
     result = subprocess.run(command, capture_output=True, text=True)
 
     if result.returncode != 0:
-        return
+        continue
 
     if os.path.exists(wallet_path):
         with io.open(wallet_path, 'r') as file:
