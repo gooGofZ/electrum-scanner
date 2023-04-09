@@ -13,4 +13,5 @@ electrum setconfig rpcport 7777
 electrum setconfig rpcuser VM
 electrum setconfig rpcpassword VM123
 
+echo 'นึกแล้วมึงต้องอ่าน!!'
 reboot
