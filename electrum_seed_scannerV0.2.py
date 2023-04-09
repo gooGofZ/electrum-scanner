@@ -14,15 +14,15 @@ def main():
     word = BIP39.WORDLIST
     for layer1 in range(len(word)):
         start = "abandon"
-        phrase1 = f"minor zone pool {word[layer1]} remain combine {start} claw medal settle grace capable"
+        phrase1 = f"word1 word2 word3 {word[layer1]} word5 word6 {start} word8 word9 word10 word11 word12"
         stack.append(phrase1)
         for layer2 in range(len(word)):
-            phrase2 = f"minor zone pool {word[layer1]} remain combine {word[layer2]} claw medal settle grace capable"
+            phrase2 = f"word1 word2 word3 {word[layer1]} word5 word6 {word[layer2]} word8 word9 word10 word11 word12"
             stack.append(phrase2)
 
     for i in range(len(stack)):
         #print(f'{i + 1} | {stack[i]}')
-        wallet_path = f"/home/rushmi0/.electrum/electrum_wallet/restore_{i}.json"
+        wallet_path = f"/home/rushmi0/.electrum/electrum_wallet/account_{i}.json"
         seed_phrase = stack[i]
         print(seed_phrase)
 
