@@ -13,10 +13,10 @@ def brute_force():
     word = BIP39.WORDLIST
     start = "abandon"
     for layer1 in range(len(word)):
-        phrase1 = f"minor zone pool {word[layer1]} remain combine {start} claw medal settle grace capable"
+        phrase1 = f"word1 word2 word3 {word[layer1]} word5 word6 {start} word8 word9 word10 word11 word12"
         yield phrase1
         for layer2 in range(len(word)):
-            phrase2 = f"minor zone pool {word[layer1]} remain combine {word[layer2]} claw medal settle grace capable"
+            phrase2 = f"word1 word2 word3 {word[layer1]} word5 word6 {word[layer2]} word8 word9 word10 word11 word12"
             yield phrase2
 
 def process_seed_phrase(seed_phrase, index, my_key, wallet_path):
