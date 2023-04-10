@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 
 import io
-import json
 import os
-import subprocess
+import json
 import BIP39
 import pyfiglet
+import subprocess
+
 
 def brute_force():
     wordlist = BIP39.WORDLIST
@@ -13,10 +14,11 @@ def brute_force():
             for a in wordlist
             for b in wordlist)
 
+
 def main():
     key = "zpub6nhhoBvkc6pNgU3JPwobardNLniafeTGnBkxrw8XLv3DeB24W2ycBD68dNciURmdUdqkbggGRCsSNCHg6UJCnYy4tA1GKMa1ZcRGK4Rpjth"
     restore_dir = "/home/user/.electrum/electrum_wallet"
-    congratulations_file = "/home/rushmi0/.electrum/ビットコイン会った.txt"
+    congratulations_file = "/home/user/.electrum/ビットコイン会った.txt"
 
     for i, phrase in enumerate(brute_force()):
         #print(f"{i+1} | {phrase}")
