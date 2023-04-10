@@ -46,7 +46,7 @@ def process_seed_phrase(
 
     # ถ้าชุด Seed ไม่สามารถใช้ได้กับ Electrum ก็ให้ผ่านไป เพื่อให้โปรแกรมยังคงทำงานต่อไป
     if result.returncode != 0:
-        return # ป้องกันโปรแกรมไม่ให้รันโค้ดต่อไปได้
+        return None 
 
     # อ่านไฟล์จากเส้นทางจาก wallet_path ที่เรากำหนด หากมีไฟล์ account_{i}.json อยู่จริงไฟล์นั้นจะเปิดออกมาอ่าน
     if os.path.exists(wallet_path):
