@@ -38,7 +38,7 @@ def process_seed_phrase(
                         ):
 
  
-    # electrum restore -w /home/rushmi0/.electrum/ビットコインに会った.txt  "minor zone pool abandon remain combine achieve claw medal settle grace capable"
+    # electrum restore -w /home/user/.electrum/ビットコインに会った.txt  "minor zone pool abandon remain combine achieve claw medal settle grace capable"
     command = ["electrum", "restore", "-w", wallet_path, seed_phrase]
     result = subprocess.run(command, capture_output=True, text=True)
 
@@ -62,7 +62,7 @@ def process_seed_phrase(
         if key_target == master_key:
 
             # ถ้าค่า Master Public Key ที่จาก JSON ตรงกับ Master Public Key ของเรา.. จะเขียนทันทึกทันที
-            with io.open("/home/rushmi0/.electrum/ビットコインに会った.txt", "a") as f:
+            with io.open("/home/user/.electrum/ビットコインに会った.txt", "a") as f:
 
                 # เขียนบันทึก Seed
                 f.write(f"{index + 1} | {mnemonic}\n")
@@ -80,7 +80,7 @@ def main():
 
             # wallet_path: ตรงนี้เรากำหนดเองว่าต้องการบันทึก account_{i}.json ที่ไหน
             # TODO: ถ้าจะนำไปใช้ ต้องแก้ไข้เส้นทางเป็นของตัวเองนะ
-            wallet_path = f"/home/rushmi0/.electrum/electrum_wallet/account_{i}.json"
+            wallet_path = f"/home/user/.electrum/electrum_wallet/account_{i}.json"
             executor.submit(process_seed_phrase, seed_phrase, i, key_target, wallet_path)
 
 
