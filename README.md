@@ -1,1 +1,1 @@
-# Electrum-SeedMiner
+# นึกแล้วต้องมีคนอ่าน
