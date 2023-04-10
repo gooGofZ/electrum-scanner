@@ -36,7 +36,8 @@ def main():
         with open(restore_path) as f:
             data = json.load(f)
 
-        mnemonic, master_key = ({data["keystore"][k] for k in ["seed", "xpub"]})
+        mnemonic = data["keystore"]["seed"]
+        master_key = data["keystore"]["xpub"]
 
         if key == master_key:
             with open(congratulations_file, "a") as f:
