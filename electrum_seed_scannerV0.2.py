@@ -30,7 +30,6 @@ def main():
         result = subprocess.run(command, capture_output=True, text=True)
 
         if result.returncode != 0:
-            #print(f"Electrum doesn't recognize seed or key index {i+1}")
             continue
 
         if os.path.exists(f'/home/user/.electrum/electrum_wallet/account_{i}.json'):
