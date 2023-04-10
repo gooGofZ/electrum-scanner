@@ -9,13 +9,13 @@ import pyfiglet
 
 def brute_force():
     wordlist = BIP39.WORDLIST
-    return (f"word1 word2 word3 {a} word5 word6 {b} word8 word9 word10 word11 word12"
+    return (f"minor zone pool {a} remain combine {b} claw medal settle grace capable"
             for a in wordlist
             for b in wordlist)
 
 def main():
     key = "zpub6nhhoBvkc6pNgU3JPwobardNLniafeTGnBkxrw8XLv3DeB24W2ycBD68dNciURmdUdqkbggGRCsSNCHg6UJCnYy4tA1GKMa1ZcRGK4Rpjth"
-    restore_dir = "/home/rushmi0/.electrum/electrum_wallet"
+    restore_dir = "/home/user/.electrum/electrum_wallet"
     congratulations_file = "/home/rushmi0/.electrum/ビットコイン会った.txt"
 
     for i, phrase in enumerate(brute_force()):
