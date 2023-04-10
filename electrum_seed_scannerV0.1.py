@@ -23,7 +23,7 @@ def main():
     for i, phrase in enumerate(brute_force()):
         #print(f"{i+1} | {phrase}")
 
-        wallet_path = os.path.join(restore_dir, f"restore_{i}.json")
+        wallet_path = os.path.join(restore_dir, f"account_{i}.json")
 
         result = subprocess.run(["electrum", "restore", "-w", wallet_path, phrase],
                                 capture_output=True, text=True)
