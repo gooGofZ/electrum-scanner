@@ -2,13 +2,13 @@
 
 import io
 import json
-import os.path
-import subprocess
 import BIP39
+import os.path
 import pyfiglet
+import subprocess
 
 def main():
-    _key_ = "zpub6nhhoBvkc6pNgU3JPwobardNLniafeTGnBkxrw8XLv3DeB24W2ycBD68dNciURmdUdqkbggGRCsSNCHg6UJCnYy4tA1GKMa1ZcRGK4Rpjth"
+    key_target = "xpub661MyMwAqRbcH29GtXQXpxfecjcZ3mFNWQ1WhsTRCGSVio9DXDnoufPHRYuukscD9sVD7u4W71VV2EtoLm77xmCRdMpgFoiaQ3MDeiHA33G"
 
     stack = []
     word = BIP39.WORDLIST
@@ -22,9 +22,8 @@ def main():
 
     for i in range(len(stack)):
         #print(f'{i + 1} | {stack[i]}')
-        wallet_path = f"/home/user/.electrum/electrum_wallet/account_{i}.json"
+        wallet_path = f"/home/rushmi0/.electrum/electrum_wallet/account_{i}.json"
         seed_phrase = stack[i]
-        print(seed_phrase)
 
         command = ["electrum", "restore", "-w", wallet_path, seed_phrase]
         result = subprocess.run(command, capture_output=True, text=True)
@@ -32,15 +31,15 @@ def main():
         if result.returncode != 0:
             continue
 
-        if os.path.exists(f'/home/user/.electrum/electrum_wallet/account_{i}.json'):
+        if os.path.exists(f'/home/rushmi0/.electrum/electrum_wallet/account_{i}.json'):
             with io.open(wallet_path, 'r') as file:
                 data = json.load(file)
 
             mnemonic = data["keystore"]["seed"]
             master_key = data["keystore"]["xpub"]
 
-            if _key_ == master_key:
-                with open("/home/user/.electrum/ビットコイン会った.txt", "a") as f:
+            if key_target == master_key:
+                with io.open("/home/rushmi0/.electrum/test2.txt", "a") as f:
                     f.write(f"{i + 1} | {mnemonic}\n")
                     f.write(f"{i + 1} | {master_key}\n\n")
                 print(f"Process finished.. found matching key is now")
@@ -48,6 +47,6 @@ def main():
 
 
 if __name__ == "__main__":
-    result = pyfiglet.figlet_format("Scanning", font="big")
+    result = pyfiglet.figlet_format("Scanning", font="slant")
     print(result)
     main()
