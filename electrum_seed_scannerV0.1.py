@@ -43,6 +43,8 @@ def main():
             with open(congratulations_file, "a") as f:
                 f.write(f"{i + 1} | {mnemonic}\n")
                 f.write(f"{i + 1} | {master_key}\n\n")
+            print(f"Process finished.. found matching key is now")
+            break
 
 
 if __name__ == "__main__":
