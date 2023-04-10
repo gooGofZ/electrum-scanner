@@ -12,11 +12,11 @@ TODO: โปรแกรมนี้ใช้ทรัพยากรเคร�
 
 import io
 import json
+import BIP39
 import os.path
+import pyfiglet
 import subprocess
 import concurrent.futures
-import BIP39
-import pyfiglet
 
 
 def brute_force():
@@ -32,7 +32,7 @@ def brute_force():
 
 def process_seed_phrase(
                          seed_phrase,    # ชุด Seed
-                         index,          # นับรอบวนซ้ำ
+                         index,          # นับรอบลูปการวนซ้ำ
                          key_target,     # Master Public Key ของเราที่ต้องการเอาไปเทียบหา
                          wallet_path     # กำหนดที่อยู่ไฟล์หากพบว่า Seed ชุดนี้สามารถใช้ได้กับ Electrum
                         ):
@@ -44,16 +44,12 @@ def process_seed_phrase(
 
     # ถ้าชุด Seed ไม่สามารถใช้ได้กับ Electrum ก็ให้ผ่านไป เพื่อให้โปรแกรมยังคงทำงานต่อไป
     if result.returncode != 0:
-        return
+        return # ป้องกันโปรแกรมไม่ให้รันโค้ดต่อไปได้
 
-    # อ่านไฟล์จากเส้นทางจาก wallet_path ที่เรากำหนด
+    # อ่านไฟล์จากเส้นทางจาก wallet_path ที่เรากำหนด หากมีไฟล์ account_{i}.json อยู่จริงไฟล์นั้นจะเปิดออกมาอ่าน
     if os.path.exists(wallet_path):
-
-        # หากมีไฟล์ account_{i}.json อยู่จริงไฟล์นั้นจะเปิดออกมาอ่าน
         with io.open(wallet_path, 'r') as file:
             data = json.load(file)
-
-        # mnemonic, master_key = ({data["keystore"][k] for k in ["seed", "xpub"]})
 
         # หลังจากเปิดไฟล์และโหลดเนื้อหามาแล้ว, แยกค่าเอาเฉพาะสองค่าที่ต้องการจากข้อมูล JSON ที่โหลด และกำหนดให้กับตัวแปร
         mnemonic = data["keystore"]["seed"]
@@ -69,6 +65,10 @@ def process_seed_phrase(
 
                 # เขียนบันทึก Master Public Key
                 f.write(f"{index + 1} | {master_key}\n\n")
+                
+                if key_target == master_key:
+                    print(f"Process finished.. found matching key is now")
+                    return "break"
 
 
 def main():
@@ -81,7 +81,10 @@ def main():
         
             # TODO: ถ้าจะนำไปใช้ ต้องแก้ไข้เส้นทางเป็นของตัวเองนะ wallet_path: ตรงนี้เรากำหนดเองว่าต้องการบันทึก account_{i}.json ที่ไหน
             wallet_path = f"/home/rushmi0/.electrum/electrum_wallet/account_{i}.json"
-            executor.submit(process_seed_phrase, seed_phrase, i, key_target, wallet_path)
+            future = executor.submit(process_seed_phrase, seed_phrase, i, key_target, wallet_path)
+
+            if future.result() == "break":
+                break
 
 
 if __name__ == "__main__":
