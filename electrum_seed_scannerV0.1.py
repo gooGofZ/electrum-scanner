@@ -45,6 +45,6 @@ def main():
 
 
 if __name__ == "__main__":
-    result = pyfiglet.figlet_format("Scanning", font="slant")
+    result = pyfiglet.figlet_format("Scanning", font="big")
     print(result)
     main()
