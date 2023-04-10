@@ -74,13 +74,13 @@ def process_seed_phrase(
 def main():
     key_target = "zpub6nhhoBvkc6pNgU3JPwobardNLniafeTGnBkxrw8XLv3DeB24W2ycBD68dNciURmdUdqkbggGRCsSNCHg6UJCnYy4tA1GKMa1ZcRGK4Rpjth"
 
-    with concurrent.futures.ThreadPoolExecutor() as executor:
+    thread = 8  # กำหนดจำนวน thread ที่เราต้องการใช้งาน. CPU ของผมมี 4 core 8 thread ผมต้องการให้การคำนวณแบบสุดกำลัง ผมจึงใช้ 8 thread
+    with concurrent.futures.ThreadPoolExecutor(max_workers=thread) as executor:
         for i, seed_phrase in enumerate(brute_force()):
             # print(f'{i + 1} | {seed_phrase}')
-
-            # wallet_path: ตรงนี้เรากำหนดเองว่าต้องการบันทึก account_{i}.json ที่ไหน
-            # TODO: ถ้าจะนำไปใช้ ต้องแก้ไข้เส้นทางเป็นของตัวเองนะ
-            wallet_path = f"/home/user/.electrum/electrum_wallet/account_{i}.json"
+        
+            # TODO: ถ้าจะนำไปใช้ ต้องแก้ไข้เส้นทางเป็นของตัวเองนะ wallet_path: ตรงนี้เรากำหนดเองว่าต้องการบันทึก account_{i}.json ที่ไหน
+            wallet_path = f"/home/rushmi0/.electrum/electrum_wallet/account_{i}.json"
             executor.submit(process_seed_phrase, seed_phrase, i, key_target, wallet_path)
 
 
