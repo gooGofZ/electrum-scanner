@@ -71,6 +71,7 @@ def main():
             # print(f'{i + 1} | {seed_phrase}')
 
             # wallet_path: ตรงนี้เรากำหนดเองว่าต้องการบันทึก account_{i}.json ที่ไหน
+            # TODO ถ้าจำนำไปใช้ต้องแก้ไข้เส้นทางเป็น
             wallet_path = f"/home/rushmi0/.electrum/electrum_wallet/account_{i}.json"
             executor.submit(process_seed_phrase, seed_phrase, i, key_target, wallet_path)
 
