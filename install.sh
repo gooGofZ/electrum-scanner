@@ -9,8 +9,6 @@ tar -xvf Electrum-4.3.4.tar.gz
 python3 -m pip install --user Electrum-4.3.4.tar.gz
 
 electrum setconfig rpcport 7777
-electrum setconfig rpcuser VM
-electrum setconfig rpcpassword VM123
 
 sudo apt-get update -y
 
