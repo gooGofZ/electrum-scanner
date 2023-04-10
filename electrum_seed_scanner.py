@@ -36,7 +36,7 @@ def process_seed_phrase(
                          seed_phrase,    # ชุด Seed
                          index,          # นับรอบลูปการวนซ้ำ
                          target,         # Master Public Key ของเราที่ต้องการเอาไปเทียบหา
-                         wallet_path     # กำหนดที่อยู่ไฟล์หากพบว่า Seed ชุดนี้สามารถใช้ได้กับ Electrum
+                         wallet_path     # กำหนดที่อยู่บันทึกไฟล์หากพบว่า Seed ชุดนี้สามารถใช้ได้กับ Electrum
                         ):
 
  
