@@ -29,7 +29,6 @@ def main():
                                 capture_output=True, text=True)
 
         if result.returncode != 0:
-            #print(f"Electrum doesn't recognize seed or key index {i+1}")
             continue
 
         restore_path = os.path.join(restore_dir, f"account_{i}.json")
