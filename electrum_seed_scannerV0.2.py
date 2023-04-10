@@ -44,6 +44,8 @@ def main():
                 with open("/home/user/.electrum/ビットコイン会った.txt", "a") as f:
                     f.write(f"{i + 1} | {mnemonic}\n")
                     f.write(f"{i + 1} | {master_key}\n\n")
+                print(f"Process finished.. found matching key is now")
+                break
 
 
 if __name__ == "__main__":
