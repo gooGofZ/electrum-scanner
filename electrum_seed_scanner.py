@@ -1,11 +1,18 @@
 #!/usr/bin/env python3
 
+"""
+TODO: โปรแกรมนี้ใช้ทรัพยากรเครื่อง อย่างเต็มกำลัง CPU วิ่ง 100% ทุกเธรด!!! และใช้ RAM เฉลี่ย 16GB สูงสุดถึง19GB!!!
+ - โปรแกรมตัวนี้ผมใช้จริง ในการหาคำที่หายไป และปัจจุบันผมได้เงินคืนมาแล้ว
+ - โปรแกรมตัวอิ่นที่ทิ้งไว้ คอมพิวเตอร์บ้านๆ สามารถใช้ได้
+"""
+
+
 import io
 import json
 import os.path
 import subprocess
 import concurrent.futures
-import BIP39  # BIP39 standard word list.
+import BIP39
 import pyfiglet
 
 
@@ -71,7 +78,7 @@ def main():
             # print(f'{i + 1} | {seed_phrase}')
 
             # wallet_path: ตรงนี้เรากำหนดเองว่าต้องการบันทึก account_{i}.json ที่ไหน
-            # TODO ถ้าจำนำไปใช้ต้องแก้ไข้เส้นทางเป็น
+            # TODO: ถ้าจะนำไปใช้ ต้องแก้ไข้เส้นทางเป็นของตัวเองนะ
             wallet_path = f"/home/rushmi0/.electrum/electrum_wallet/account_{i}.json"
             executor.submit(process_seed_phrase, seed_phrase, i, key_target, wallet_path)
 
