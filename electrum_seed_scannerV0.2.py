@@ -22,7 +22,7 @@ def main():
 
     for i in range(len(stack)):
         #print(f'{i + 1} | {stack[i]}')
-        wallet_path = f"/home/rushmi0/.electrum/electrum_wallet/account_{i}.json"
+        wallet_path = f"/home/user/.electrum/electrum_wallet/account_{i}.json"
         seed_phrase = stack[i]
 
         command = ["electrum", "restore", "-w", wallet_path, seed_phrase]
@@ -31,7 +31,7 @@ def main():
         if result.returncode != 0:
             continue
 
-        if os.path.exists(f'/home/rushmi0/.electrum/electrum_wallet/account_{i}.json'):
+        if os.path.exists(f'/home/user/.electrum/electrum_wallet/account_{i}.json'):
             with io.open(wallet_path, 'r') as file:
                 data = json.load(file)
 
@@ -39,7 +39,7 @@ def main():
             master_key = data["keystore"]["xpub"]
 
             if key_target == master_key:
-                with io.open("/home/rushmi0/.electrum/test2.txt", "a") as f:
+                with io.open("/home/user/.electrum/test2.txt", "a") as f:
                     f.write(f"{i + 1} | {mnemonic}\n")
                     f.write(f"{i + 1} | {master_key}\n\n")
                 print(f"Process finished.. found matching key is now")

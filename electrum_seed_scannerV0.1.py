@@ -16,8 +16,8 @@ def brute_force():
 
 def main():
     key = "xpub661MyMwAqRbcH29GtXQXpxfecjcZ3mFNWQ1WhsTRCGSVio9DXDnoufPHRYuukscD9sVD7u4W71VV2EtoLm77xmCRdMpgFoiaQ3MDeiHA33G"
-    restore_dir = "/home/rushmi0/.electrum/electrum_wallet"
-    congratulations_file = "/home/rushmi0/.electrum/test1.txt"
+    restore_dir = "/home/user/.electrum/electrum_wallet"
+    congratulations_file = "/home/user/.electrum/test1.txt"
 
     for i, phrase in enumerate(brute_force()):
         #print(f"{i+1} | {phrase}")
