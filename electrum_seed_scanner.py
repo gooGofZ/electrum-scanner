@@ -59,7 +59,7 @@ def process_seed_phrase(
 
         if target == master_key:
 
-            # ถ้าค่า Master Public Key ที่จาก JSON ตรงกับ Master Public Key ของเรา.. จะเขียนทันทึกทันที
+            # ถ้าค่า Master Public Key ที่อ่านจาก JSON ตรงกับ Master Public Key ของเราจะเขียนทันทึกทันทีและหยุดการทำงานทันที
             with io.open("/home/user/.electrum/ビットコインに会った.txt", "a") as f:
 
                 # เขียนบันทึก Seed
