@@ -33,7 +33,7 @@ def brute_force():
 def process_seed_phrase(
                          seed_phrase,    # ชุด Seed
                          index,          # นับรอบลูปการวนซ้ำ
-                         key_target,     # Master Public Key ของเราที่ต้องการเอาไปเทียบหา
+                         target,         # Master Public Key ของเราที่ต้องการเอาไปเทียบหา
                          wallet_path     # กำหนดที่อยู่ไฟล์หากพบว่า Seed ชุดนี้สามารถใช้ได้กับ Electrum
                         ):
 
@@ -55,7 +55,7 @@ def process_seed_phrase(
         mnemonic = data["keystore"]["seed"]
         master_key = data["keystore"]["xpub"]
 
-        if key_target == master_key:
+        if target == master_key:
 
             # ถ้าค่า Master Public Key ที่จาก JSON ตรงกับ Master Public Key ของเรา.. จะเขียนทันทึกทันที
             with io.open("/home/user/.electrum/ビットコインに会った.txt", "a") as f:
@@ -66,13 +66,13 @@ def process_seed_phrase(
                 # เขียนบันทึก Master Public Key
                 f.write(f"{index + 1} | {master_key}\n\n")
                 
-                if key_target == master_key:
+                if target == master_key:
                     print(f"Process finished.. found matching key is now")
                     return "break"
 
 
 def main():
-    key_target = "zpub6nhhoBvkc6pNgU3JPwobardNLniafeTGnBkxrw8XLv3DeB24W2ycBD68dNciURmdUdqkbggGRCsSNCHg6UJCnYy4tA1GKMa1ZcRGK4Rpjth"
+    target = "zpub6nhhoBvkc6pNgU3JPwobardNLniafeTGnBkxrw8XLv3DeB24W2ycBD68dNciURmdUdqkbggGRCsSNCHg6UJCnYy4tA1GKMa1ZcRGK4Rpjth"
 
     thread = 8  # กำหนดจำนวน thread ที่เราต้องการใช้งาน. CPU ของผมมี 4 core 8 thread ผมต้องการให้การคำนวณแบบสุดกำลัง ผมจึงใช้ 8 thread
     with concurrent.futures.ThreadPoolExecutor(max_workers=thread) as executor:
@@ -80,8 +80,8 @@ def main():
             # print(f'{i + 1} | {seed_phrase}')
         
             # TODO: ถ้าจะนำไปใช้ ต้องแก้ไข้เส้นทางเป็นของตัวเองนะ wallet_path: ตรงนี้เรากำหนดเองว่าต้องการบันทึก account_{i}.json ที่ไหน
-            wallet_path = f"/home/rushmi0/.electrum/electrum_wallet/account_{i}.json"
-            future = executor.submit(process_seed_phrase, seed_phrase, i, key_target, wallet_path)
+            wallet_path = f"/home/user/.electrum/electrum_wallet/account_{i}.json"
+            future = executor.submit(process_seed_phrase, seed_phrase, i, target, wallet_path)
 
             if future.result() == "break":
                 break
