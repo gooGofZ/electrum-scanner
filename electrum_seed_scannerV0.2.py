@@ -33,7 +33,7 @@ def main():
             #print(f"Electrum doesn't recognize seed or key index {i+1}")
             continue
 
-        if os.path.exists(f'/home/user/.electrum/electrum_wallet/restore_{i}.json'):
+        if os.path.exists(f'/home/user/.electrum/electrum_wallet/account_{i}.json'):
             with io.open(wallet_path, 'r') as file:
                 data = json.load(file)
 
@@ -47,6 +47,6 @@ def main():
 
 
 if __name__ == "__main__":
-    result = pyfiglet.figlet_format("[Mining V2]", font="slant")
+    result = pyfiglet.figlet_format("Scanning", font="big")
     print(result)
     main()
