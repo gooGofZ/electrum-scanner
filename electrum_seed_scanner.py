@@ -40,7 +40,7 @@ def process_seed_phrase(
                         ):
 
  
-    # electrum restore -w /home/user/.electrum/ビットコインに会った.txt  "minor zone pool abandon remain combine achieve claw medal settle grace capable"
+    # electrum restore -w /home/user/.electrum/ビットコイン.txt  "minor zone pool abandon remain combine achieve claw medal settle grace capable"
     command = ["electrum", "restore", "-w", wallet_path, seed_phrase]
     result = subprocess.run(command, capture_output=True, text=True)
 
