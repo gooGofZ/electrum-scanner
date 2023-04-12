@@ -78,12 +78,15 @@ def main():
 
     thread = 8  # กำหนดจำนวน thread ที่เราต้องการใช้งาน. CPU ของผมมี 4 core 8 thread ผมต้องการให้การคำนวณแบบสุดกำลัง ผมจึงใช้ 8 thread
     with concurrent.futures.ThreadPoolExecutor(max_workers=thread) as executor:
-        for i, seed_phrase in enumerate(brute_force()):
+        for index, seed_phrase in enumerate(brute_force()):
             # print(f'{i + 1} | {seed_phrase}')
         
             # TODO: ถ้าจะนำไปใช้ ต้องแก้ไข้เส้นทางเป็นของตัวเองนะ wallet_path: ตรงนี้เรากำหนดเองว่าต้องการบันทึก account_{i}.json ที่ไหน
-            wallet_path = f"/home/user/.electrum/electrum_wallet/account_{i}.json"
-            future = executor.submit(process_seed_phrase, seed_phrase, i, target, wallet_path)
+            os.makedirs(wallet_path, exist_ok=True)
+            future = executor.submit(process_seed_phrase,
+                                     seed_phrase, index,
+                                     target,
+                                     wallet_path + f"/account_{index}.json")
 
             if future.result() == "break":
                 break
