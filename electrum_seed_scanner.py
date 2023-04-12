@@ -28,11 +28,11 @@ def brute_force():
 
 
 def process_seed_phrase(
-        seed_phrase,  # ชุด Seed
-        index,  # นับรอบลูปการวนซ้ำ
-        target,  # Master Public Key ของเราที่ต้องการเอาไปเทียบหา
-        wallet_path  # กำหนดที่อยู่บันทึกไฟล์หากพบว่า Seed ชุดนี้สามารถใช้ได้กับ Electrum
-):
+                        seed_phrase,  # ชุด Seed
+                        index,  # นับรอบลูปการวนซ้ำ
+                        target,  # Master Public Key ของเราที่ต้องการเอาไปเทียบหา
+                        wallet_path  # กำหนดที่อยู่บันทึกไฟล์หากพบว่า Seed ชุดนี้สามารถใช้ได้กับ Electrum
+                       ):
     # electrum restore -w /home/rushmi0/.electrum/ビットコイン.txt  "minor zone pool abandon remain combine achieve claw medal settle grace capable"
     command = ["electrum", "restore", "-w", wallet_path, seed_phrase]
     result = subprocess.run(command, capture_output=True, text=True)
@@ -79,10 +79,10 @@ def main():
             os.makedirs(wallet_path, exist_ok=True)
 
             future = executor.submit(
-                process_seed_phrase,
-                seed_phrase, index,
-                target,
-                wallet_path + f"/account_{index}.json"
+                               process_seed_phrase,
+                               seed_phrase, index,
+                               target,
+                               wallet_path + f"/account_{index}.json"
             )
 
             if future.result() == "break":
