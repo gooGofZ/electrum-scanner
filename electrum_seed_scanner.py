@@ -11,7 +11,6 @@ TODO: โปรแกรมนี้ใช้ทรัพยากรเคร�
  https://electrum.org/#download
 """
 
-
 import io
 import json
 import BIP39
@@ -23,28 +22,26 @@ import concurrent.futures
 
 def brute_force():
     wordlist = BIP39.WORDLIST
-    return (f"minor zone pool {a} remain combine {b} claw medal settle grace capable"
-            for a in wordlist
-            for b in wordlist)
+    return (f"minor zone pool {word4} remain combine {word7} claw medal settle grace capable"
+            for word4 in wordlist
+            for word7 in wordlist)
 
 
 def process_seed_phrase(
-                         seed_phrase,    # ชุด Seed
-                         index,          # นับรอบลูปการวนซ้ำ
-                         target,         # Master Public Key ของเราที่ต้องการเอาไปเทียบหา
-                         wallet_path     # กำหนดที่อยู่บันทึกไฟล์หากพบว่า Seed ชุดนี้สามารถใช้ได้กับ Electrum
-                        ):
-
- 
-    # electrum restore -w /home/user/.electrum/ビットコイン.txt  "minor zone pool abandon remain combine achieve claw medal settle grace capable"
+        seed_phrase,  # ชุด Seed
+        index,  # นับรอบลูปการวนซ้ำ
+        target,  # Master Public Key ของเราที่ต้องการเอาไปเทียบหา
+        wallet_path  # กำหนดที่อยู่บันทึกไฟล์หากพบว่า Seed ชุดนี้สามารถใช้ได้กับ Electrum
+):
+    # electrum restore -w /home/rushmi0/.electrum/ビットコイン.txt  "minor zone pool abandon remain combine achieve claw medal settle grace capable"
     command = ["electrum", "restore", "-w", wallet_path, seed_phrase]
     result = subprocess.run(command, capture_output=True, text=True)
 
     # ถ้าชุด Seed ไม่สามารถใช้ได้กับ Electrum ก็ให้ผ่านไป เพื่อให้โปรแกรมยังคงทำงานต่อไป
     if result.returncode != 0:
-        return None 
+        return None
 
-    # อ่านไฟล์จากเส้นทางจาก wallet_path ที่เรากำหนด หากมีไฟล์ account_{i}.json อยู่จริงไฟล์นั้นจะเปิดออกมาอ่าน
+        # อ่านไฟล์จากเส้นทางจาก wallet_path ที่เรากำหนด หากมีไฟล์ account_{i}.json อยู่จริงไฟล์นั้นจะเปิดออกมาอ่าน
     if os.path.exists(wallet_path):
         with io.open(wallet_path, 'r') as file:
             data = json.load(file)
@@ -56,14 +53,14 @@ def process_seed_phrase(
         if target == master_key:
 
             # ถ้าค่า Master Public Key ที่อ่านจาก JSON ตรงกับ Master Public Key ของเราจะเขียนทันทึกทันทีและหยุดการทำงานทันที
-            with io.open("/home/user/.electrum/ビットコイン.txt", "a") as f:
+            with io.open("/home/rushmi0/.electrum/ビットコイン.txt", "a") as f:
 
                 # เขียนบันทึก Seed
                 f.write(f"{index + 1} | {mnemonic}\n")
 
                 # เขียนบันทึก Master Public Key
                 f.write(f"{index + 1} | {master_key}\n\n")
-                
+
                 if target == master_key:
                     print(f"Process finished.. found matching key is now")
                     return "break"
@@ -75,18 +72,18 @@ def main():
     thread = 8  # กำหนดจำนวน thread ที่เราต้องการใช้งาน. แก้ไขได้
     with concurrent.futures.ThreadPoolExecutor(max_workers=thread) as executor:
         for index, seed_phrase in enumerate(brute_force()):
-            # print(f'{i + 1} | {seed_phrase}')
-        
+            # print(f'{index + 1} | {seed_phrase}')
+
             # TODO: ถ้าจะนำไปใช้ ต้องแก้ไข้เส้นทางเป็นของตัวเองนะ wallet_path: ตรงนี้เรากำหนดเองว่าต้องการบันทึก account_{i}.json ที่ไหน
-            wallet_path = '/home/user/.electrum/electrum_wallet'
+            wallet_path = '/home/rushmi0/.electrum/electrum_wallet'
             os.makedirs(wallet_path, exist_ok=True)
-           
+
             future = executor.submit(
-                                     process_seed_phrase,
-                                     seed_phrase, index,
-                                     target,
-                                     wallet_path + f"/account_{index}.json"
-                                    )
+                process_seed_phrase,
+                seed_phrase, index,
+                target,
+                wallet_path + f"/account_{index}.json"
+            )
 
             if future.result() == "break":
                 break
