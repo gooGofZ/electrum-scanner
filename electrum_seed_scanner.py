@@ -65,7 +65,8 @@ def process_seed_phrase(
 
 
 def main():
-    target = "zpub6nhhoBvkc6pNgU3JPwobardNLniafeTGnBkxrw8XLv3DeB24W2ycBD68dNciURmdUdqkbggGRCsSNCHg6UJCnYy4tA1GKMa1ZcRGK4Rpjth"
+    target = "xpub661MyMwAqRbcFqPrfnJyBZJhFgjo83KvuGdZciaW5zCJVgmbmAJDsjmJGoKguZbQVezhTrJCEU5YSnoyiEysF6Uiwdxgz3WqnC87eHJGvzQ"
+    # target = "zpub6nhhoBvkc6pNgU3JPwobardNLniafeTGnBkxrw8XLv3DeB24W2ycBD68dNciURmdUdqkbggGRCsSNCHg6UJCnYy4tA1GKMa1ZcRGK4Rpjth"
 
     thread = 8  # กำหนดจำนวน thread ที่เราต้องการใช้งาน. แก้ไขได้
     with concurrent.futures.ThreadPoolExecutor(max_workers=thread) as executor:
