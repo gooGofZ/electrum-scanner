@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """
-TODO: โปรแกรมนี้ใช้ทรัพยากรเครื่องเยอะมาก CPU วิ่ง 100% ทุกเธรด!!! (กำหนดจำนวนเธรดได้)  และใช้ RAM เฉลี่ย 16GB
+TODO: โปรแกรมนี้ใช้ทรัพยากรเครื่องเยอะมาก CPU วิ่ง 100% ทุกเธรด!!! (จริงๆ กำหนดจำนวนเธรดได้) และใช้ RAM เฉลี่ย 15GB
  - โปรแกรมตัวนี้ผมใช้จริง ในการหาคำที่หายไป และปัจจุบันผมได้เงินคืนมาแล้ว
  - โปรแกรมตัวอื่นที่ทิ้งไว้ คอมพิวเตอร์ทั่วไปบ้านๆ สามารถใช้ได้
 
@@ -82,7 +82,9 @@ def main():
             # print(f'{i + 1} | {seed_phrase}')
         
             # TODO: ถ้าจะนำไปใช้ ต้องแก้ไข้เส้นทางเป็นของตัวเองนะ wallet_path: ตรงนี้เรากำหนดเองว่าต้องการบันทึก account_{i}.json ที่ไหน
+            wallet_path = '/home/rushmi0/.electrum/electrum_wallet'
             os.makedirs(wallet_path, exist_ok=True)
+           
             future = executor.submit(process_seed_phrase,
                                      seed_phrase, index,
                                      target,
