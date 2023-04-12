@@ -22,14 +22,10 @@ import concurrent.futures
 
 
 def brute_force():
-    word = BIP39.WORDLIST
-    start = "abandon"
-    for layer1 in range(len(word)):
-        phrase1 = f"minor zone pool {word[layer1]} remain combine {start} claw medal settle grace capable"
-        yield phrase1
-        for layer2 in range(len(word)):
-            phrase2 = f"minor zone pool {word[layer1]} remain combine {word[layer2]} claw medal settle grace capable"
-            yield phrase2
+    wordlist = BIP39.WORDLIST
+    return (f"minor zone pool {a} remain combine {b} claw medal settle grace capable"
+            for a in wordlist
+            for b in wordlist)
 
 
 def process_seed_phrase(
