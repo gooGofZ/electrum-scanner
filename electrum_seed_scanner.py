@@ -85,10 +85,12 @@ def main():
             wallet_path = '/home/rushmi0/.electrum/electrum_wallet'
             os.makedirs(wallet_path, exist_ok=True)
            
-            future = executor.submit(process_seed_phrase,
+            future = executor.submit(
+                                     process_seed_phrase,
                                      seed_phrase, index,
                                      target,
-                                     wallet_path + f"/account_{index}.json")
+                                     wallet_path + f"/account_{index}.json"
+                                    )
 
             if future.result() == "break":
                 break
