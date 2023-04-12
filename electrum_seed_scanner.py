@@ -46,14 +46,14 @@ def process_seed_phrase(
         with io.open(wallet_path, 'r') as file:
             data = json.load(file)
 
-        # หลังจากเปิดไฟล์และโหลดเนื้อหามาแล้ว, แยกค่าเอาเฉพาะสองค่าที่ต้องการจากข้อมูล JSON ที่โหลด และกำหนดให้กับตัวแปร
+        # หลังจากเปิดไฟล์และโหลดเนื้อหามาแล้ว, แยกค่าเอาเฉพาะสองค่าที่ต้องการจากข้อมูล JSON ที่โหลด
         mnemonic = data["keystore"]["seed"]
         master_key = data["keystore"]["xpub"]
 
         if target == master_key:
 
             # ถ้าค่า Master Public Key ที่อ่านจาก JSON ตรงกับ Master Public Key ของเราจะเขียนทันทึกทันทีและหยุดการทำงานทันที
-            with io.open("/home/rushmi0/.electrum/ビットコイン.txt", "a") as f:
+            with io.open("/home/user/.electrum/ビットコイン.txt", "a") as f:
 
                 # เขียนบันทึก Seed
                 f.write(f"{index + 1} | {mnemonic}\n")
@@ -75,7 +75,7 @@ def main():
             # print(f'{index + 1} | {seed_phrase}')
 
             # TODO: ถ้าจะนำไปใช้ ต้องแก้ไข้เส้นทางเป็นของตัวเองนะ wallet_path: ตรงนี้เรากำหนดเองว่าต้องการบันทึก account_{i}.json ที่ไหน
-            wallet_path = '/home/rushmi0/.electrum/electrum_wallet'
+            wallet_path = '/home/user/.electrum/electrum_wallet'
             os.makedirs(wallet_path, exist_ok=True)
 
             future = executor.submit(
