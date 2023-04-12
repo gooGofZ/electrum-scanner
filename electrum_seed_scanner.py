@@ -72,7 +72,7 @@ def process_seed_phrase(
 def main():
     target = "zpub6nhhoBvkc6pNgU3JPwobardNLniafeTGnBkxrw8XLv3DeB24W2ycBD68dNciURmdUdqkbggGRCsSNCHg6UJCnYy4tA1GKMa1ZcRGK4Rpjth"
 
-    thread = 8  # กำหนดจำนวน thread ที่เราต้องการใช้งาน. CPU ของผมมี 4 core 8 thread ผมต้องการให้การคำนวณแบบสุดกำลัง ผมจึงใช้ 8 thread
+    thread = 8  # กำหนดจำนวน thread ที่เราต้องการใช้งาน. แก้ไขได้
     with concurrent.futures.ThreadPoolExecutor(max_workers=thread) as executor:
         for index, seed_phrase in enumerate(brute_force()):
             # print(f'{i + 1} | {seed_phrase}')
