@@ -98,7 +98,6 @@ def main():
             )
 
             if future.result() == "break":
-                print(f"Process finished.. found matching key is now")
                 break
             """
 
