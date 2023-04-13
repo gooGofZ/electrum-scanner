@@ -53,7 +53,7 @@ def process_seed_phrase(
         if target == master_key:
             print(f"found matching key is now \n{wallet_path}")
             # เทียบค่า Master Public Key ที่อ่านจาก JSON ถ้าตรงกับ Master Public Key ของเราและเขียนทันทึกทันที
-            with io.open("/home/user/.electrum/ビットコイン.txt", "a") as f:
+            with open("/home/user/.electrum/ビットコイン.txt", "a") as f:
 
                 # เขียนบันทึก Seed
                 f.write(f"{index + 1} | {mnemonic}\n")
