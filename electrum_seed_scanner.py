@@ -72,12 +72,21 @@ def main():
 
     thread = 8  # กำหนดจำนวน thread ที่เราต้องการใช้งาน. แก้ไขได้
     with concurrent.futures.ThreadPoolExecutor(max_workers=thread) as executor:
+        
+        # TODO: ถ้าจะนำไปใช้ ต้องแก้ไข้เส้นทางเป็นของตัวเองนะ wallet_path: ตรงนี้เรากำหนดเองว่าต้องการบันทึก account_{i}.json ที่ไหน
+        mkdir = '/home/rushmi0/.electrum/electrum_wallet/'
+        os.makedirs(mkdir, exist_ok=True)
+       
         for index, seed_phrase in enumerate(brute_force()):
             # print(f'{index + 1} | {seed_phrase}')
-
-            # TODO: ถ้าจะนำไปใช้ ต้องแก้ไข้เส้นทางเป็นของตัวเองนะ wallet_path: ตรงนี้เรากำหนดเองว่าต้องการบันทึก account_{i}.json ที่ไหน
-            wallet_path = f"/home/rushmi0/.electrum/electrum_wallet/account_{index}.json"
-            executor.submit(process_seed_phrase, seed_phrase, index, target, wallet_path)
+            wallet_path = mkdir + f"account_{index}.json"
+            executor.submit(
+                 process_seed_phrase,
+                 seed_phrase,
+                 index,
+                 target,
+                 wallet_path
+             )
            
             """
             wallet_path = '/home/user/.electrum/electrum_wallet'
