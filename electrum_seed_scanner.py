@@ -28,20 +28,20 @@ def brute_force():
 
 
 def process_seed_phrase(
-        seed_phrase,  # ชุด Seed
-        index,        # นับรอบลูปการวนซ้ำ
-        target,       # Master Public Key ของเราที่ต้องการเอาไปเทียบหา
-        wallet_path   # กำหนดที่อยู่บันทึกไฟล์หากพบว่า Seed ชุดนี้สามารถใช้ได้กับ Electrum
+        seed_phrase: str,  # ชุด Seed
+        index:       int,  # นับรอบลูปการวนซ้ำ
+        target:      str,  # Master Public Key ของเราที่ต้องการเอาไปเทียบหา
+        wallet_path: str   # กำหนดที่อยู่บันทึกไฟล์หากพบว่า Seed ชุดนี้สามารถใช้ได้กับ Electrum
 ):
     # electrum restore -w /home/user/.electrum/ビットコイン.txt  "minor zone pool abandon remain combine achieve claw medal settle grace capable"
-    command = ["electrum", "restore", "-w", wallet_path, seed_phrase]
-    result = subprocess.run(command, capture_output=True, text=True)
+    send = ["electrum", "restore", "-w", wallet_path, seed_phrase]
+    result = subprocess.run(send, capture_output=True, text=True)
 
-    # ถ้าชุด Seed ไม่สามารถใช้ได้กับ Electrum ก็ให้ผ่านไป เพื่อให้โปรแกรมยังคงทำงานต่อไป
+    # ถ้าชุด Seed ไม่สามารถใช้ได้กับ Electrum ก็ให้ผ่านไป
     if result.returncode != 0:
         return None
 
-        # อ่านไฟล์จากเส้นทางจาก wallet_path ที่เรากำหนด หากมีไฟล์ account_{i}.json อยู่จริงไฟล์นั้นจะเปิดออกมาอ่าน
+    # อ่านไฟล์จากเส้นทางจาก wallet_path ที่เรากำหนด หากมีไฟล์ account_{index}.json มีอยู่จริงไฟล์ก็จะเปิดออกมาอ่าน
     if os.path.exists(wallet_path):
         with io.open(wallet_path, 'r') as file:
             data = json.load(file)
@@ -51,7 +51,8 @@ def process_seed_phrase(
         master_key = data["keystore"]["xpub"]
 
         if target == master_key:
-            # ถ้าค่า Master Public Key ที่อ่านจากมามันตรงกับ Master Public Key ของเรา จะเขียนทันทึกทันทีและหยุดการทำงานทันที
+            print(f"found matching key is now \n{wallet_path}")
+            # เทียบค่า Master Public Key ที่อ่านจาก JSON ถ้าตรงกับ Master Public Key ของเราและเขียนทันทึกทันที
             with io.open("/home/user/.electrum/ビットコイン.txt", "a") as f:
 
                 # เขียนบันทึก Seed
@@ -89,9 +90,6 @@ def main():
              )
            
             """
-            wallet_path = '/home/user/.electrum/electrum_wallet'
-            os.makedirs(wallet_path, exist_ok=True)
-
             future = executor.submit(
                 process_seed_phrase,
                 seed_phrase, index,
