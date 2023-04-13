@@ -60,8 +60,10 @@ def process_seed_phrase(
                 # เขียนบันทึก Master Public Key
                 f.write(f"{index + 1} | {master_key}\n\n")
 
+                """
                 if target == master_key:
                     return "break"
+                """
 
 
 def main():
@@ -74,6 +76,10 @@ def main():
             # print(f'{index + 1} | {seed_phrase}')
 
             # TODO: ถ้าจะนำไปใช้ ต้องแก้ไข้เส้นทางเป็นของตัวเองนะ wallet_path: ตรงนี้เรากำหนดเองว่าต้องการบันทึก account_{i}.json ที่ไหน
+            wallet_path = f"/home/rushmi0/.electrum/electrum_wallet/account_{index}.json"
+            executor.submit(process_seed_phrase, seed_phrase, index, target, wallet_path)
+           
+            """
             wallet_path = '/home/user/.electrum/electrum_wallet'
             os.makedirs(wallet_path, exist_ok=True)
 
@@ -87,6 +93,7 @@ def main():
             if future.result() == "break":
                 print(f"Process finished.. found matching key is now")
                 break
+            """
 
 
 if __name__ == "__main__":
