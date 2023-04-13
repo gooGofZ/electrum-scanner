@@ -32,7 +32,7 @@ def process_seed_phrase(
         index:       int,  # นับรอบลูปการวนซ้ำ
         target:      str,  # Master Public Key ของเราที่ต้องการเอาไปเทียบหา
         wallet_path: str   # กำหนดที่อยู่บันทึกไฟล์หากพบว่า Seed ชุดนี้สามารถใช้ได้กับ Electrum
-):
+) -> str:
     # electrum restore -w /home/user/.electrum/ビットコイン.txt  "minor zone pool abandon remain combine achieve claw medal settle grace capable"
     send = ["electrum", "restore", "-w", wallet_path, seed_phrase]
     result = subprocess.run(send, capture_output=True, text=True)
@@ -61,10 +61,7 @@ def process_seed_phrase(
                 # เขียนบันทึก Master Public Key
                 f.write(f"{index + 1} | {master_key}\n\n")
 
-                """
-                if target == master_key:
-                    return "break"
-                """
+            return "break"
 
 
 def main():
